@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { TodoProvider } from './context/TodoProvider';
+import WelcomeScreen from './screens/WelcomeScreen';
+import CategoriesScreen from './screens/CategoriesScreen';
+import CategoryDetailsScreen from './screens/CategoryDetailsScreen';
+import TodoItemScreen from './screens/TodoItemScreen';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Time aso</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TodoProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Categories" component={CategoriesScreen} />
+          <Stack.Screen
+            name="CategoryDetails"
+            component={CategoryDetailsScreen}
+          />
+          <Stack.Screen name="TodoItem" component={TodoItemScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TodoProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
